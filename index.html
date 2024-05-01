@@ -29,13 +29,9 @@
         function findJobs() {
             var name = document.getElementById('name').value;
             var skills = document.getElementById('skills').value.split(',');
-
-            // Construct the request body
             var formData = new FormData();
             formData.append('name', name);
             formData.append('skills', skills);
-
-            // Send POST request to backend using Fetch API
             fetch('/find_jobs', {
                 method: 'POST',
                 body: formData
@@ -51,7 +47,7 @@
 
         function displayJobs(matchedJobs) {
             var jobsList = document.getElementById('jobsList');
-            jobsList.innerHTML = ''; // Clear previous results
+            jobsList.innerHTML = '';
 
             var ul = document.createElement('ul');
             matchedJobs.forEach(function(job) {
