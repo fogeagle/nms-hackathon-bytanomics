@@ -11,7 +11,7 @@ class Job:
         self.description = description
 
 def fetch_jobs_from_api():
-    # Example: Using GitHub Jobs API
+    # Github jobs api
     response = requests.get("https://jobs.github.com/positions.json")
     jobs_data = response.json()
     jobs = []
@@ -28,18 +28,11 @@ def match_people_to_jobs(people, jobs):
 
     matches = []
     for person in people:
-        # Vectorize person's skills
         person_skills = ' '.join(person.skills)
         Y = vectorizer.transform([person_skills])
-
-        # Calculate cosine similarity between person's skills and job descriptions
         similarities = cosine_similarity(X, Y)
-
-        # Find the best match
         best_match_index = similarities.argmax()
         best_match_score = similarities[best_match_index]
-
-        # If the best match score is above a certain threshold, consider it a match
         if best_match_score > 0.5:
             best_match_job = jobs[best_match_index]
             matches.append((person.name, best_match_job.title, best_match_job.description))
@@ -55,7 +48,7 @@ def find_jobs():
     name = request.form['name']
     skills = request.form['skills'].split(',')
 
-    # Sample people (you can replace these with actual data)
+    # Sample people (for testing, i still have to figure out how to get the data from the websites)
     people = [
         {"name": "Alice", "skills": ["Python", "Java", "SQL"]},
         {"name": "Bob", "skills": ["Java", "C++", "HTML"]},
